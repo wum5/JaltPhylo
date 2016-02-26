@@ -27,7 +27,7 @@ python $SF/SeqRename.py $OF/initial_ortholog_align $OF/without_Capsella $OF/Clus
 ##### Add Capsella-Tomato 1-to-1 orthologous sequence into sequence files
 python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa $OF/with_Capsella
 ##### Run Guidance to make sequence alignments
- python $SF/directory_subpackage.py $OF/with_Capsella/ 40 .fa
- python build.py
- python qsub_cmd.py
- sh qsub.sh
+* python $SF/directory_subpackage.py $OF/with_Capsella/ 40 .fa
+* python build.py
+* python qsub_cmd.py
+* sh qsub.sh
