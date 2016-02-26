@@ -21,6 +21,7 @@
 ##### Paralogy pruning to infer orthologs
 * python prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_cutoff> <absolute_long_tip_cutoff> <minimal_taxa> <outDIR>
 ##### Write sequence files from ortholog trees
+
 * python write_ortholog_fasta_files.py <fasta file with all seqs> <ortholog tree DIR> outDIR MIN_TAXA
 ##### Rename the sequence files based on Tomato Gene Model rather than Cluster ID
 * python $SF/SeqRename.py $OF/initial_ortholog_align $OF/without_Capsella $OF/Cluster2Gene.txt
