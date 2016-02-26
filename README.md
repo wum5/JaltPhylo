@@ -6,8 +6,8 @@
 * Still in updating!
 
 ## AUTHORS: 
-Meng Wu
-https://github.com/wum5/JaltPhylo
+* Meng Wu
+* https://github.com/wum5/JaltPhylo
 
 ## Folder Set
 ##### Python Script Folder
