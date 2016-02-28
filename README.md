@@ -26,8 +26,16 @@ python write_ortholog_fasta_files.py <fasta file with all seqs> <ortholog tree D
 python $SF/SeqRename.py $OF/initial_ortholog_align $OF/without_Capsella $OF/Cluster2Gene.txt
 ##### Add Capsella-Tomato 1-to-1 orthologous sequence into sequence files
 python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa $OF/with_Capsella
+
+## Alignment Construction and Quality Check
 ##### Run Guidance to make sequence alignments
 * python $SF/directory_subpackage.py $OF/with_Capsella/ 40 .fa
 * python build.py
 * python qsub_cmd.py
 * sh qsub.sh
+
+##### re-run Guidance on unprocessed sequences
+move to the guidance-output direcotry
+* for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names ../post-guid/init/$file; done
+* python $SF/find_unprocessed_files.py $OF/post-guid/init $OF/with_Capsella $OF/unprocessed
+* sh prank_plus.sh
