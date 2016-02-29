@@ -35,7 +35,7 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * sh qsub.sh
 
 ##### re-run Guidance on unprocessed sequences
-move to the guidance-output direcotry
+* cd $OF/guidAlign2
 * for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names ../post-guid/init/$file; done
 * python $SF/find_unprocessed_files.py $OF/post-guid/init $OF/with_Capsella $OF/unprocessed
 * sh prank_plus.sh
