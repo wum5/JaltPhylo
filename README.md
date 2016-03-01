@@ -1,4 +1,4 @@
-# JaltPhylo
+# Jaltomata Phylogenomics
 
 ## Description
 * Raw scripts/Pipeline for the "Jaltomato Phylogenomics" Project.
