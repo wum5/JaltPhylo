@@ -39,3 +39,7 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names ../post-guid/init/$file; done
 * python $SF/find_unprocessed_files.py $OF/post-guid/init $OF/with_Capsella $OF/unprocessed
 * sh prank_plus.sh
+
+##### post-alignment treatment
+* python $SF/OrfBoundary.py $OF/post-guid/init $OF/2nd_BoundaryFixed
+* 
