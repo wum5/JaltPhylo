@@ -34,17 +34,17 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * python qsub_cmd.py
 * sh qsub.sh
 
-##### re-run Guidance on unprocessed sequences
+##### Re-run Guidance on unprocessed sequences
 * cd $OF/guidAlign2
 * for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names ../post-guid/init/$file; done
 * python $SF/find_unprocessed_files.py $OF/post-guid/init $OF/with_Capsella $OF/unprocessed
 * qsub prank_plus.sh
 
-##### post-alignment treatment_1
+##### Post-alignment treatment_1
 * python $SF/OrfBoundary.py $OF/post-guid/init $OF/post-guid/2nd_BoundaryFixed
 * qsub $SF/mask_bySW.sh
 
-##### post-alignment treatment_2
+##### Post-alignment treatment_2
 * python $SF/seqformat_converter.py $OF/post-guid/3rd_maskedSW $OF/post-guid/4th_preSWAMP
 * sh edit_phy2.sh
 * python $SF/codemlScript.py $OF/post-guid/4th_preSWAMP $OF/codeml_build
