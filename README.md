@@ -42,4 +42,4 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 
 ##### post-alignment treatment
 * python $SF/OrfBoundary.py $OF/post-guid/init $OF/2nd_BoundaryFixed
-* 
+* sh $SF/mask_bySW.sh
