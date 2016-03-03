@@ -38,8 +38,14 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * cd $OF/guidAlign2
 * for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names ../post-guid/init/$file; done
 * python $SF/find_unprocessed_files.py $OF/post-guid/init $OF/with_Capsella $OF/unprocessed
-* sh prank_plus.sh
+* qsub prank_plus.sh
 
-##### post-alignment treatment
+##### post-alignment treatment_1
 * python $SF/OrfBoundary.py $OF/post-guid/init $OF/post-guid/2nd_BoundaryFixed
-* sh $SF/mask_bySW.sh
+* qsub $SF/mask_bySW.sh
+
+##### post-alignment treatment_2
+* python $SF/seqformat_converter.py $OF/post-guid/3rd_maskedSW $OF/post-guid/4th_preSWAMP
+* sh edit_phy2.sh
+* python $SF/codemlScript.py $OF/post-guid/4th_preSWAMP $OF/codeml_build
+* qsub paml.sh
