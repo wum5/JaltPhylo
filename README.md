@@ -5,7 +5,7 @@
 * Some scripts were written by Ya Yang for her study (https://bitbucket.org/yangya/phylogenomic_dataset_construction)
 * Still in updating!
 
-## AUTHORS: 
+## Authors: 
 * Meng Wu
 * https://github.com/wum5/JaltPhylo
 
