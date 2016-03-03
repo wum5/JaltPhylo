@@ -49,3 +49,7 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * sh edit_phy2.sh
 * python $SF/codemlScript.py $OF/post-guid/4th_preSWAMP $OF/codeml_build
 * qsub paml.sh
+
+##### Concatenate alignments
+python $SF/ConcatSeq.py $OF/post-guid/final_Align $OF/concat/concat.fa
+
