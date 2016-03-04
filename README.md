@@ -47,9 +47,10 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 ##### Post-alignment treatment_2
 * python $SF/seqformat_converter.py $OF/post-guid/3rd_maskedSW $OF/post-guid/4th_preSWAMP
 * sh edit_phy2.sh
-* python $SF/codemlScript.py $OF/post-guid/4th_preSWAMP $OF/codeml_build
+* python $SF/codemlScript.py $OF/post-guid/4th_preSWAMP $OF/codeml_build $OF/treeFile
+* python $SF/directory_subpackage.py $OF/post-guid/4th_preSWAMP 1000 fileEnding
 * qsub paml.sh
 
 ##### Concatenate alignments
-python $SF/ConcatSeq.py $OF/post-guid/final_Align $OF/concat/concat.fa
+* python $SF/ConcatSeq.py $OF/post-guid/final_Align $OF/concat/concat.fa
 
