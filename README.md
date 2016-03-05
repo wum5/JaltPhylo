@@ -12,6 +12,8 @@
 ## Folder Set
 ##### Python Script Folder
 SF=/N/dc2/projects/jaltomt/script
+##### Software Folder
+SW=/N/dc2/projects/jaltomt/software
 ##### Orthologs Folder
 OF=/N/dc2/projects/jaltomt/de_novo/e5_80/updated_ortholog
 ##### Homologs Folder
@@ -45,21 +47,25 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * qsub $SF/mask_bySW.sh
 
 ##### Post-alignment treatment_2 (before PAML analysis)
-* python $SF/seqformat_converter.py $OF/post-guid/3rd_maskedSW $OF/post-guid/4th_preSWAMP
+* python $SF/seqformat_converter.py $OF/post-guid/3rd_maskedSW $OF/post-guid/4th_preSWAMP .fa
 * sh edit_phy2.sh
 * python $SF/codemlScript.py $OF/post-guid/4th_preSWAMP $OF/codeml_build $OF/treeFile
 * python $SF/directory_subpackage.py $OF/post-guid/4th_preSWAMP 1000 fileEnding
 * qsub paml.sh
 * python software/SWAMP-master/SWAMP.py -i $OF/post-guid/4th_preSWAMP -b $OF/branchcodes_withCap.txt -t 5 -w 15 -m 50
 * for file in Solyc*; do cp $file/*masked.phy $OF/post-guid/5th_postSWAMP/; done
-* for file in 5th_postSWAMP/Solyc*; do mv $file 6th_Gblocks; done
+* for file in $OF/post-guid/5th_postSWAMP/fastaFile/Solyc*; do cp $file $OF/post-guid/6th_Gblocks; done
 * for file in Solyc*; do sed -i 's/N/-/g' $file; done
 * python $SF/gblocks_wrapper.py $OF/post-guid/6th_Gblocks
 * python $SF/GbSpaceDelete.py $OF/post-guid/6th_Gblocks $OF/post-guid/7th_Final
 
 ##### Concatenate alignments
-* python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP/phylipFile/ $OF/post-guid/5th_postSWAMP/fastaFile/
+* python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP/phylipFile/ $OF/post-guid/5th_postSWAMP/fastaFile/ .phy
 * python $SF/ConcatSeq.py $OF/post-guid/5th_postSWAMP/fastaFile/ $OF/post-guid/5th_postSWAMP/concat_withCap.fa
-* python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP $OF/post-guid/5th_postSWAMP
+* python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP $OF/post-guid/5th_postSWAMP .fa
 
-
+## Adaptive Evolution Test
+##### Run PAML using MVF
+* python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/post-guid/7th_Final/* --out $OF/MVF_PAML/withCap/Jalt_ortho_dna --contigbyfile --overwrite
+* python3.3 $SW/mvftools-dev-master/mvf_translate.py --mvf $OF/MVF_PAML/noCap/Jalt_ortho_dna --out $OF/MVF_PAML/noCap/Jalt_ortho_codon
+* qsub $SF/mvf_paml.sh
