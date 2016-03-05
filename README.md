@@ -40,17 +40,26 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * python $SF/find_unprocessed_files.py $OF/post-guid/init $OF/with_Capsella $OF/unprocessed
 * qsub prank_plus.sh
 
-##### Post-alignment treatment_1
+##### Post-alignment treatment_1 (before constructing phylogeny)
 * python $SF/OrfBoundary.py $OF/post-guid/init $OF/post-guid/2nd_BoundaryFixed
 * qsub $SF/mask_bySW.sh
 
-##### Post-alignment treatment_2
+##### Post-alignment treatment_2 (before PAML analysis)
 * python $SF/seqformat_converter.py $OF/post-guid/3rd_maskedSW $OF/post-guid/4th_preSWAMP
 * sh edit_phy2.sh
 * python $SF/codemlScript.py $OF/post-guid/4th_preSWAMP $OF/codeml_build $OF/treeFile
 * python $SF/directory_subpackage.py $OF/post-guid/4th_preSWAMP 1000 fileEnding
 * qsub paml.sh
+* python software/SWAMP-master/SWAMP.py -i $OF/post-guid/4th_preSWAMP -b $OF/branchcodes_withCap.txt -t 5 -w 15 -m 50
+* for file in Solyc*; do cp $file/*masked.phy $OF/post-guid/5th_postSWAMP/; done
+* for file in 5th_postSWAMP/Solyc*; do mv $file 6th_Gblocks; done
+* for file in Solyc*; do sed -i 's/N/-/g' $file; done
+* python $SF/gblocks_wrapper.py $OF/post-guid/6th_Gblocks
+* python $SF/GbSpaceDelete.py $OF/post-guid/6th_Gblocks $OF/post-guid/7th_Final
 
 ##### Concatenate alignments
-* python $SF/ConcatSeq.py $OF/post-guid/final_Align $OF/concat/concat.fa
+* python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP/phylipFile/ $OF/post-guid/5th_postSWAMP/fastaFile/
+* python $SF/ConcatSeq.py $OF/post-guid/5th_postSWAMP/fastaFile/ $OF/post-guid/5th_postSWAMP/concat_withCap.fa
+* python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP $OF/post-guid/5th_postSWAMP
+
 
