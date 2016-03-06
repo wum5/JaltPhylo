@@ -71,6 +71,7 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * qsub $SF/mvf_paml.sh
 
 ## Introgression Analysis
+##### Run ABBA using MVF
 * python $SF/ConcatSeq.py $OF/pranked_align/7th_Final $OF/D-stat/Jalt_concat_dna.fa
 * python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/D-stat/Jalt_concat_dna.fa --out $OF/D-stat/jalt_concat_dna --overwrite
 * sh $OF/D-stat/trios.sh
