@@ -64,8 +64,13 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * python $SF/ConcatSeq.py $OF/post-guid/5th_postSWAMP/fastaFile/ $OF/post-guid/5th_postSWAMP/concat_withCap.fa
 * python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP $OF/post-guid/5th_postSWAMP .fa
 
-## Adaptive Evolution Test
+## Adaptive Evolution Analysis
 ##### Run PAML using MVF
 * python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/post-guid/7th_Final/* --out $OF/MVF_PAML/withCap/Jalt_ortho_dna --contigbyfile --overwrite
 * python3.3 $SW/mvftools-dev-master/mvf_translate.py --mvf $OF/MVF_PAML/noCap/Jalt_ortho_dna --out $OF/MVF_PAML/noCap/Jalt_ortho_codon
 * qsub $SF/mvf_paml.sh
+
+## Introgression Analysis
+python $SF/ConcatSeq.py $OF/pranked_align/7th_Final $OF/D-stat/Jalt_concat_dna.fa
+python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/D-stat/Jalt_concat_dna.fa --out $OF/D-stat/jalt_concat_dna --overwrite
+sh $OF/D-stat/trios.sh
