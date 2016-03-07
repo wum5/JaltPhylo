@@ -56,8 +56,8 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * for file in Solyc*; do cp $file/*masked.phy $OF/post-guid/5th_postSWAMP/; done
 * for file in $OF/post-guid/5th_postSWAMP/fastaFile/Solyc*; do cp $file $OF/post-guid/6th_Gblocks; done
 * for file in Solyc*; do sed -i 's/N/-/g' $file; done
-* python $SF/gblocks_wrapper.py $OF/post-guid/6th_Gblocks
-* python $SF/GbSpaceDelete.py $OF/post-guid/6th_Gblocks $OF/post-guid/7th_Final
+* python $SF/DeleteSites.py $OF/post-guid/5th_postSWAMP/fastaFile/ $OF/post-guid/6th_Final/
+* python $SF/StopCodon.py $OF/post-guid/6th_Final/ .fa
 
 ##### Concatenate alignments
 * python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP/phylipFile/ $OF/post-guid/5th_postSWAMP/fastaFile/ .phy
@@ -66,9 +66,10 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 
 ## Adaptive Evolution Analysis
 ##### Run PAML using MVF
-* python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/post-guid/7th_Final/* --out $OF/MVF_PAML/withCap/Jalt_ortho_dna --contigbyfile --overwrite
+* python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/post-guid/6th_Final/* --out $OF/MVF_PAML/withCap/Jalt_ortho_dna --contigbyfile --overwrite
 * python3.3 $SW/mvftools-dev-master/mvf_translate.py --mvf $OF/MVF_PAML/noCap/Jalt_ortho_dna --out $OF/MVF_PAML/noCap/Jalt_ortho_codon
 * qsub $SF/mvf_paml.sh
+* python $SF/CombinedPAML.py $OF/MVF_PAML/noCap/Clade2_out $OF/MVF_PAML/noCap/Geneoutput_Clade2 $OF/GeneFunction.txt > $OF/MVF_PAML/Clade2_final.txt
 
 ## Introgression Analysis
 ##### Run ABBA using MVF
