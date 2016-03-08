@@ -67,9 +67,9 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 ## Adaptive Evolution Analysis
 ##### Run PAML using MVF
 * python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/post-guid/6th_Final/* --out $OF/MVF_PAML/withCap/Jalt_ortho_dna --contigbyfile --overwrite
-* python3.3 $SW/mvftools-dev-master/mvf_translate.py --mvf $OF/MVF_PAML/noCap/Jalt_ortho_dna --out $OF/MVF_PAML/noCap/Jalt_ortho_codon
+* python3.3 $SW/mvftools-dev-master/mvf_translate.py --mvf $OF/MVF_PAML/withCap/Jalt_ortho_dna --out $OF/MVF_PAML/withCap/Jalt_ortho_codon
 * qsub $SF/mvf_paml.sh
-* python $SF/CombinedPAML.py $OF/MVF_PAML/noCap/Clade2_out $OF/MVF_PAML/noCap/Geneoutput_Clade2 $OF/GeneFunction.txt > $OF/MVF_PAML/Clade2_final.txt
+* python $SF/CombinedPAML.py $OF/MVF_PAML/withCap/Clade2_out $OF/MVF_PAML/withCap/Geneoutput_Clade2 $OF/GeneFunction.txt > $OF/MVF_PAML/Clade2_final.txt
 
 ## Introgression Analysis
 ##### Run ABBA using MVF
