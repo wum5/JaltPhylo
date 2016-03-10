@@ -72,7 +72,7 @@ python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/
 * python $SF/CombinedPAML.py $OF/MVF_PAML/withCap/Clade2_out $OF/MVF_PAML/withCap/Geneoutput_Clade2 $OF/GeneFunction.txt > $OF/MVF_PAML/Clade2_final.txt
 
 ##### Run PAML on Untested Candidate Genes
-sh $SF/prank/prank_plus.sh
+* sh $SF/prank/prank_plus.sh
 
 ## Introgression Analysis
 ##### Run ABBA using MVF
