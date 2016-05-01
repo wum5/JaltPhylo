@@ -20,9 +20,9 @@ OF=/N/dc2/projects/jaltomt/de_novo/e5_80/updated_ortholog
 HF=/N/dc2/projects/jaltomt/de_novo/e5_80/homologs
 
 ## Raw Data Processing
-##### trim low-quality reads using shear.py
+##### Trim low-quality reads using shear.py
 qsub trim.sh
-##### check reads quality using FastaQC
+##### Check read quality using FastaQC
 qsub FastaQC.sh
 
 ## Ortholog Inference
