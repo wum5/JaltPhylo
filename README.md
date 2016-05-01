@@ -19,6 +19,12 @@ OF=/N/dc2/projects/jaltomt/de_novo/e5_80/updated_ortholog
 ##### Homologs Folder
 HF=/N/dc2/projects/jaltomt/de_novo/e5_80/homologs
 
+## Raw Data Processing
+##### trim low-quality reads using shear.py
+qsub trim.sh
+##### check reads quality using FastaQC
+qsub FastaQC.sh
+
 ## Ortholog Inference
 ##### Paralogy pruning to infer orthologs
 python prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_cutoff> <absolute_long_tip_cutoff> <minimal_taxa> <outDIR>
