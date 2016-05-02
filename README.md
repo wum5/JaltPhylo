@@ -21,9 +21,11 @@ HF=/N/dc2/projects/jaltomt/de_novo/e5_80/homologs
 
 ## Raw Data Processing
 ##### Trim low-quality reads using shear.py
-qsub trim.sh
+qsub $SF/trim.sh
 ##### Check read quality using FastaQC
-qsub FastaQC.sh
+qsub $SF/FastaQC.sh
+##### Build transcript assembly
+qsub $SF/trinity.sh
 
 ## Ortholog Inference
 ##### Paralogy pruning to infer orthologs
