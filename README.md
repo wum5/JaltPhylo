@@ -22,12 +22,12 @@ HF=/N/dc2/projects/jaltomt/de_novo/e5_80/homologs
 ## Raw Data Processing
 ##### Trim low-quality reads using shear.py
 qsub $SF/trim.sh
+##### Remove the first 15-bp of reads due to non-random hexamer primers
+qsub $SF/clip5end.sh
 ##### Check read quality using FastaQC
 qsub $SF/FastaQC.sh
 ##### Build transcript assembly
 qsub $SF/trinity.sh
-##### Remove the first 15-bp of reads due to non-random hexamer primers
-qsub $SF/clip5end.sh
 
 ## Ortholog Inference
 ##### Paralogy pruning to infer orthologs
