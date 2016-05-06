@@ -26,6 +26,8 @@ qsub $SF/trim.sh
 qsub $SF/FastaQC.sh
 ##### Build transcript assembly
 qsub $SF/trinity.sh
+##### Remove the first 15-bp of reads due to non-random hexamer primers
+qsub $SF/clip5end.sh
 
 ## Ortholog Inference
 ##### Paralogy pruning to infer orthologs
