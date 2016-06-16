@@ -11,7 +11,9 @@
 
 ## Folder Set
 ##### Python Script Folder
+```
 SF=/N/dc2/projects/jaltomt/script
+```
 ##### Software Folder
 SW=/N/dc2/projects/jaltomt/software
 ##### Orthologs Folder
