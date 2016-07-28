@@ -12,7 +12,7 @@
 ## Folder Set
 ##### Python Script Folder
 ```
-SF=/N/dc2/projects/jaltomt/script
+SF=/N/dc2/projects/jaltomt/scripts
 ```
 ##### Software Folder
 ```
