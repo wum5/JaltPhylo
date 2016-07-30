@@ -60,8 +60,8 @@ qsub $SF/cd-hit-est.sh
 ## Homolog Inference
 ##### Make all-by-all blast
 ```
-* makeblastdb -in all.fa -parse_seqids -dbtype nucl -out all.fa
-* qsub $SF/blastn.sh
+makeblastdb -in all.fa -parse_seqids -dbtype nucl -out all.fa
+qsub $SF/blastn.sh
 ```
 ##### Cut ends that are fast-evolving, or using sequences from genome annotation
 ```
@@ -69,9 +69,9 @@ python $SF/cut_seq_ends.py all.fa all.rawblast
 ```
 ##### Inferring putative homolog groups using similarity
 ```
-* python $SF/blast_to_mcl.py all.rawblast <hit_fraction_cutoff>[0.4]
-* mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
-* python $SF/write_fasta_files_from_mcl.py <fasta files without ends cut> <mcl_outfile> <minimal_taxa> <outDIR>
+python $SF/blast_to_mcl.py all.rawblast <hit_fraction_cutoff>[0.4]
+mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
+python $SF/write_fasta_files_from_mcl.py <fasta files without ends cut> <mcl_outfile> <minimal_taxa> <outDIR>
 ```
 ##### Delete empty files
 ```
@@ -79,9 +79,9 @@ find . -size 0 -delete
 ```
 ##### make initial alignments
 ```
-* qsub $SF/mafft.sh
-* qsub $SF/phyutility.sh
-* qsub $SF/fasttree.sh
+qsub $SF/mafft.sh
+qsub $SF/phyutility.sh
+qsub $SF/fasttree.sh
 ```
 ##### Cut long internal branch
 ```
@@ -89,8 +89,8 @@ python cut_long_branches_iter.py inDIR outDIR 0.3 0.1
 ```
 ##### refine the final clusters
 ```
-* qsub $SF/mafft.sh
-* qsub $SF/phyutility.sh
+qsub $SF/mafft.sh
+qsub $SF/phyutility.sh
 ```
 ##### Tree inference using RAxML
 ```
