@@ -16,7 +16,7 @@ SF=/N/dc2/projects/jaltomt/scripts
 ```
 ##### Software Folder
 ```
-SW=/N/dc2/projects/jaltomt/software
+SW=/N/dc2/projects/jaltomt/softwares
 ```
 ##### Orthologs Folder
 ```
