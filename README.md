@@ -18,13 +18,13 @@ SF=/N/dc2/projects/jaltomt/scripts
 ```
 SW=/N/dc2/projects/jaltomt/softwares
 ```
-##### Orthologs Folder
-```
-OF=/N/dc2/projects/jaltomt/de_novo/e5_80/updated_ortholog
-```
 ##### Homologs Folder
 ```
-HF=/N/dc2/projects/jaltomt/de_novo/e5_80/homologs
+HF=/N/dc2/projects/jaltomt/homologs
+```
+##### Orthologs Folder
+```
+OF=/N/dc2/projects/jaltomt/orthologs
 ```
 
 ## Raw Data Processing
