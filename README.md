@@ -55,6 +55,7 @@ python $SF/fix_names_from_transdecoder.py trans_out trans_out
 ```
 ##### Reduce redundancy
 ```
+cat trans_out/JA0816* > cdhit_out/JA0816.cds.fa
 qsub $SF/cd-hit-est.sh
 ```
 
