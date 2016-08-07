@@ -50,7 +50,8 @@ qsub $SF/transdecoder.sh
 ```
 ##### Rename CDS files
 ```
-python $SF/fix_names_from_transdecoder.py trinity_OutFolder CDS_Folder
+for file in *_dir; do cp $file/longest_orfs.cds ../trans_out/$file'.cds'; done
+python $SF/fix_names_from_transdecoder.py trans_out trans_out
 ```
 ##### Reduce redundancy
 ```
