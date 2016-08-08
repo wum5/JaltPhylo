@@ -66,10 +66,10 @@ qsub $SF/blastn.sh
 ```
 ##### Inferring putative homolog groups using similarity
 ```
-cat *.blastn >all.rawblast
+cat *blastn >all.rawblast
 python $SF/blast_to_mcl.py all.rawblast <hit_fraction_cutoff>[0.4]
 mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
-python $SF/write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_taxa> <outDIR>
+python $SF/write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_ingroup_taxa> <outDIR>
 ```
 ##### Delete empty files
 ```
