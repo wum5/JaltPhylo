@@ -64,15 +64,11 @@ qsub $SF/cd-hit-est.sh
 ```
 qsub $SF/blastn.sh
 ```
-##### Cut ends that are fast-evolving, or using sequences from genome annotation
-```
-python $SF/cut_seq_ends.py all.fa all.rawblast
-```
 ##### Inferring putative homolog groups using similarity
 ```
 python $SF/blast_to_mcl.py all.rawblast <hit_fraction_cutoff>[0.4]
 mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
-python $SF/write_fasta_files_from_mcl.py <fasta files without ends cut> <mcl_outfile> <minimal_taxa> <outDIR>
+python $SF/write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_taxa> <outDIR>
 ```
 ##### Delete empty files
 ```
