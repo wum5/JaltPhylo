@@ -62,7 +62,6 @@ qsub $SF/cd-hit-est.sh
 ## Homolog Inference
 ##### Make all-by-all blast
 ```
-makeblastdb -in all.fa -parse_seqids -dbtype nucl -out all.fa
 qsub $SF/blastn.sh
 ```
 ##### Cut ends that are fast-evolving, or using sequences from genome annotation
