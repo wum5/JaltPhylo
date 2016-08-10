@@ -83,7 +83,7 @@ qsub $SF/fasttree.sh
 ```
 ##### Cut long internal branch
 ```
-python cut_long_branches_iter.py inDIR outDIR 0.3 0.1
+python cut_long_branches_iter.py inDIR outDIR
 ```
 ##### refine the final clusters
 ```
@@ -96,11 +96,11 @@ qsub $SF/raxml.sh
 ```
 ##### Cut long internal branches
 ```
-python cut_long_internal_branches.py inDIR internal_branch_length_cutoff[0.2] minimal_taxa outDIR
+python cut_long_internal_branches.py inDIR internal_branch_length_cutoff minimal_taxa outDIR
 ```
 ##### Trim spurious tips
 ```
-python trim_tips.py <treDIR> <outDIR> <relative_cutoff>[0.05] <absolute_cutoff1>[0.2] <absolute_cutoff1>[0.1]
+python trim_tips.py <treDIR> <outDIR> <relative_cutoff> <absolute_cutoff1> <absolute_cutoff1>
 ```
 ##### Mask monophyletic and paraphyletic tips that belongs to the same taxon
 ```
