@@ -67,7 +67,7 @@ qsub $SF/blastn.sh
 ##### Inferring putative homolog groups using similarity
 ```
 cat *blastn >all.rawblast
-python $SF/blast_to_mcl.py all.rawblast <hit_fraction_cutoff>[0.4]
+python $SF/blast_to_mcl.py all.rawblast <hit_fraction_cutoff>
 mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
 python $SF/write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_ingroup_taxa> <outDIR>
 ```
@@ -83,7 +83,7 @@ qsub $SF/fasttree.sh
 ```
 ##### Cut long internal branch
 ```
-python cut_long_branches_iter.py inDIR outDIR
+python cut_long_branches_iter.py <inDIR> <outDIR>
 ```
 ##### refine the final clusters
 ```
@@ -96,7 +96,7 @@ qsub $SF/raxml.sh
 ```
 ##### Cut long internal branches
 ```
-python cut_long_internal_branches.py inDIR internal_branch_length_cutoff minimal_taxa outDIR
+python cut_long_internal_branches.py <inDIR> <internal_branch_length_cutoff> <minimal_taxa> <outDIR>
 ```
 ##### Trim spurious tips
 ```
@@ -110,7 +110,11 @@ python mask_tips_by_taxonID_transcripts.py <treDIR> <aln-clnDIR> <outDIR>
 ## Ortholog Inference
 ##### Paralogy pruning to infer orthologs
 ```
-python prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_cutoff> <absolute_long_tip_cutoff> <minimal_taxa> <outDIR>
+python $SF/prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_cutoff> <absolute_long_tip_cutoff> <minimal_taxa> <outDIR>
+```
+##### Filter clusters with specific species
+```
+ python $SF/species_in_clusters.py <inDIR> <outDIR>
 ```
 ##### Write sequence files from ortholog trees
 ```
@@ -118,12 +122,12 @@ python write_ortholog_fasta_files.py <fasta file with all seqs> <ortholog tree D
 ```
 ##### Rename the sequence files based on Tomato Gene Model rather than Cluster ID
 ```
-python $SF/SeqRename.py $OF/initial_ortholog_align $OF/without_Capsella $OF/Cluster2Gene.txt
+python $SF/cluster_gene_ID.py <inDIR> > Cluster2Gene.txt
+python $SF/SeqRename.py <inDIR> <outDIR> Cluster2Gene.txt
 ```
 ##### Add Capsella-Tomato 1-to-1 orthologous sequence into sequence files
 ```
-python $SF/CapsellaOrtholog.py $OF/without_Capsella $OF/Tomato_Capsella.txt $OF/Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa
-$OF/with_Capsella
+python $SF/CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa <outDIR>
 ```
 
 ## Alignment Construction and Quality Check
