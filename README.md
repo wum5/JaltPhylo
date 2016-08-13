@@ -133,10 +133,9 @@ python $SF/CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zun
 ## Alignment Construction and Quality Check
 ##### Run Guidance to make sequence alignments
 ```
-python $SF/directory_subpackage.py $OF/with_Capsella/ 40 .fa
-python build.py
-python qsub_cmd.py
-sh qsub.sh
+python $SF/directory_subpackage.py $OF/with_Capsella/ <num_subdir> .fa
+python guidance.py <outDIR> <num_subdir>
+for file in *sh; do qsub $file; done
 ```
 
 ##### Re-run Guidance on unprocessed sequences
