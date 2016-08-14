@@ -116,20 +116,16 @@ python directory_subpackage.py <inDIR> <num_subdir> .fa
 python guidance.py <outDIR> <num_subdir>
 for file in *sh; do qsub $file; done
 ```
-
 ##### Re-run Guidance on unprocessed sequences
 ```
-for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names <outDIR>; done
+for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names outDIR/$file; done
 python find_unprocessed_files.py <processedDIR> <originalDIR> <unprocessedDIR>
-qsub prank_plus.sh
 ```
-
 ##### Post-alignment treatment_1 (before constructing phylogeny)
 ```
 python OrfBoundary.py <inDIR> <outDIR>
 qsub mask_bySW.sh
 ```
-
 ##### Post-alignment treatment_2 (before PAML analysis)
 ```
 python $SF/seqformat_converter.py $OF/post-guid/3rd_maskedSW $OF/post-guid/4th_preSWAMP .fa
@@ -144,7 +140,6 @@ for file in Solyc*; do sed -i 's/N/-/g' $file; done
 python $SF/DeleteSites.py $OF/post-guid/5th_postSWAMP/fastaFile/ $OF/post-guid/6th_Final/
 python $SF/StopCodon.py $OF/post-guid/6th_Final/ .fa
 ```
-
 ##### Concatenate alignments
 ```
 python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP/phylipFile/ $OF/post-guid/5th_postSWAMP/fastaFile/ .phy
@@ -160,7 +155,6 @@ python3.3 $SW/mvftools-dev-master/mvf_translate.py --mvf $OF/MVF_PAML/withCap/Ja
 qsub $SF/mvf_paml.sh
 python $SF/CombinedPAML.py $OF/MVF_PAML/withCap/Clade2_out $OF/MVF_PAML/withCap/Geneoutput_Clade2 $OF/GeneFunction.txt > $OF/MVF_PAML/Clade2_final.txt
 ```
-
 ##### Run PAML on Untested Candidate Genes
 ```
 sh $SF/prank/prank_plus.sh
