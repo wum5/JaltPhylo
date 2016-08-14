@@ -12,28 +12,28 @@
 ## Raw Data Processing
 ##### Trim low-quality reads using shear.py
 ```
-qsub $SF/trim.sh
+qsub trim.sh
 ```
 ##### Remove the first 15-bp of reads due to non-random hexamer primers
 ```
-qsub $SF/clip5end.sh
+qsub clip5end.sh
 ```
 ##### Check read quality using FastaQC
 ```
-qsub $SF/FastaQC.sh
+qsub FastaQC.sh
 ```
 ##### Build transcript assembly
 ```
-qsub $SF/trinity.sh
+qsub trinity.sh
 ```
 ##### Predict CDS using Transdecoder
 ```
-qsub $SF/transdecoder.sh
+qsub transdecoder.sh
 ```
 ##### Rename CDS files
 ```
 for file in *_dir; do cp $file/longest_orfs.cds outDIR/$file'.cds'; done
-python $SF/fix_names_from_transdecoder.py <DIR> <DIR>
+python fix_names_from_transdecoder.py <DIR> <DIR>
 ```
 ##### Reduce redundancy
 ```
@@ -71,9 +71,6 @@ python cut_long_branches_iter.py <inDIR> <outDIR>
 ```
 qsub mafft.sh
 qsub phyutility.sh
-```
-##### Tree inference using RAxML
-```
 qsub raxml.sh
 ```
 ##### Cut long internal branches
@@ -96,7 +93,7 @@ python prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_c
 ```
 ##### Filter clusters with specific species
 ```
- python species_in_clusters.py <inDIR> <outDIR>
+python species_in_clusters.py <inDIR> <outDIR>
 ```
 ##### Write sequence files from ortholog trees
 ```
@@ -129,7 +126,7 @@ qsub prank_plus.sh
 
 ##### Post-alignment treatment_1 (before constructing phylogeny)
 ```
-python OrfBoundary.py $OF/post-guid/init $OF/post-guid/2nd_BoundaryFixed
+python OrfBoundary.py <inDIR> <outDIR>
 qsub mask_bySW.sh
 ```
 
