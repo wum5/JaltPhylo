@@ -9,24 +9,6 @@
 * Meng Wu
 * https://github.com/wum5/JaltPhylo
 
-## Folder Set
-##### Python Script Folder
-```
-SF=/N/dc2/projects/jaltomt/scripts
-```
-##### Software Folder
-```
-SW=/N/dc2/projects/jaltomt/softwares
-```
-##### Homologs Folder
-```
-HF=/N/dc2/projects/jaltomt/homologs
-```
-##### Orthologs Folder
-```
-OF=/N/dc2/projects/jaltomt/orthologs
-```
-
 ## Raw Data Processing
 ##### Trim low-quality reads using shear.py
 ```
@@ -50,26 +32,26 @@ qsub $SF/transdecoder.sh
 ```
 ##### Rename CDS files
 ```
-for file in *_dir; do cp $file/longest_orfs.cds ../trans_out/$file'.cds'; done
-python $SF/fix_names_from_transdecoder.py trans_out trans_out
+for file in *_dir; do cp $file/longest_orfs.cds outDIR/$file'.cds'; done
+python $SF/fix_names_from_transdecoder.py <DIR> <DIR>
 ```
 ##### Reduce redundancy
 ```
-cat trans_out/JA0816* > cdhit_out/JA0816.cds.fa [example]
-qsub $SF/cd-hit-est.sh
+cat *_NR.fa *_RP.fa > *.cds.fa
+qsub cd-hit-est.sh
 ```
 
 ## Homolog Inference
 ##### Make all-by-all blast
 ```
-qsub $SF/blastn.sh
+qsub blastn.sh
 ```
 ##### Inferring putative homolog groups using similarity
 ```
 cat *blastn >all.rawblast
-python $SF/blast_to_mcl.py all.rawblast <hit_fraction_cutoff>
+python blast_to_mcl.py all.rawblast <hit_fraction_cutoff>
 mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
-python $SF/write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_ingroup_taxa> <outDIR>
+python write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_ingroup_taxa> <outDIR>
 ```
 ##### Delete empty files
 ```
@@ -77,9 +59,9 @@ find . -size 0 -delete
 ```
 ##### make initial alignments
 ```
-qsub $SF/mafft.sh
-qsub $SF/phyutility.sh
-qsub $SF/fasttree.sh
+qsub mafft.sh
+qsub phyutility.sh
+qsub fasttree.sh
 ```
 ##### Cut long internal branch
 ```
@@ -87,12 +69,12 @@ python cut_long_branches_iter.py <inDIR> <outDIR>
 ```
 ##### refine the final clusters
 ```
-qsub $SF/mafft.sh
-qsub $SF/phyutility.sh
+qsub mafft.sh
+qsub phyutility.sh
 ```
 ##### Tree inference using RAxML
 ```
-qsub $SF/raxml.sh
+qsub raxml.sh
 ```
 ##### Cut long internal branches
 ```
@@ -100,7 +82,7 @@ python cut_long_internal_branches.py <inDIR> <internal_branch_length_cutoff> <mi
 ```
 ##### Trim spurious tips
 ```
-python trim_tips.py <treDIR> <outDIR> <relative_cutoff> <absolute_cutoff1> <absolute_cutoff1>
+python trim_tips.py <treDIR> <outDIR> <relative_cutoff> <absolute_cutoff1> <absolute_cutoff2>
 ```
 ##### Mask monophyletic and paraphyletic tips that belongs to the same taxon
 ```
@@ -110,46 +92,45 @@ python mask_tips_by_taxonID_transcripts.py <treDIR> <aln-clnDIR> <outDIR>
 ## Ortholog Inference
 ##### Paralogy pruning to infer orthologs
 ```
-python $SF/prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_cutoff> <absolute_long_tip_cutoff> <minimal_taxa> <outDIR>
+python prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_cutoff> <absolute_long_tip_cutoff> <minimal_taxa> <outDIR>
 ```
 ##### Filter clusters with specific species
 ```
- python $SF/species_in_clusters.py <inDIR> <outDIR>
+ python species_in_clusters.py <inDIR> <outDIR>
 ```
 ##### Write sequence files from ortholog trees
 ```
-python write_ortholog_fasta_files.py <fasta file with all seqs> <ortholog tree DIR> outDIR MIN_TAXA
+python write_ortholog_fasta_files.py <fasta file with all seqs> <ortholog tree DIR> <outDIR> <MIN_TAXA>
 ```
 ##### Rename the sequence files based on Tomato Gene Model rather than Cluster ID
 ```
-python $SF/cluster_gene_ID.py <inDIR> > Cluster2Gene.txt
-python $SF/SeqRename.py <inDIR> <outDIR> Cluster2Gene.txt
+python cluster_gene_ID.py <inDIR> > Cluster2Gene.txt
+python SeqRename.py <inDIR> <outDIR> Cluster2Gene.txt
 ```
 ##### Add Capsella-Tomato 1-to-1 orthologous sequence into sequence files
 ```
-python $SF/CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa <outDIR>
+python CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa <outDIR>
 ```
 
 ## Alignment Construction and Quality Check
 ##### Run Guidance to make sequence alignments
 ```
-python $SF/directory_subpackage.py $OF/with_Capsella/ <num_subdir> .fa
+python directory_subpackage.py <inDIR> <num_subdir> .fa
 python guidance.py <outDIR> <num_subdir>
 for file in *sh; do qsub $file; done
 ```
 
 ##### Re-run Guidance on unprocessed sequences
 ```
-cd $OF/guidAlign2
-for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names ../post-guid/init/$file; done
-python $SF/find_unprocessed_files.py $OF/post-guid/init $OF/with_Capsella $OF/unprocessed
+for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names <outDIR>; done
+python find_unprocessed_files.py <processedDIR> <originalDIR> <unprocessedDIR>
 qsub prank_plus.sh
 ```
 
 ##### Post-alignment treatment_1 (before constructing phylogeny)
 ```
-python $SF/OrfBoundary.py $OF/post-guid/init $OF/post-guid/2nd_BoundaryFixed
-qsub $SF/mask_bySW.sh
+python OrfBoundary.py $OF/post-guid/init $OF/post-guid/2nd_BoundaryFixed
+qsub mask_bySW.sh
 ```
 
 ##### Post-alignment treatment_2 (before PAML analysis)
