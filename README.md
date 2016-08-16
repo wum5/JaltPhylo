@@ -128,9 +128,9 @@ qsub mask_bySW.sh
 ```
 ##### Concatenate alignments
 ```
-python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP/phylipFile/ $OF/post-guid/5th_postSWAMP/fastaFile/ .phy
-python $SF/ConcatSeq.py $OF/post-guid/5th_postSWAMP/fastaFile/ $OF/post-guid/5th_postSWAMP/concat_withCap.fa
-python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP $OF/post-guid/5th_postSWAMP .fa
+python seqformat_converter.py <phylipDIR> <fastaDIR> .phy
+python ConcatSeq.py <inDIR> concat_withCap.fa
+python seqformat_converter.py <fastaDIR> <phylipDIR> .fa
 ```
 
 ## Adaptive Evolution Analysis
@@ -148,16 +148,16 @@ python StopCodon.py <inDIR> .fa
 ```
 ##### Run PAML using MVF
 ```
-python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/post-guid/6th_Final/* --out $OF/MVF_PAML/withCap/Jalt_ortho_dna --contigbyfile --overwrite
-python3.3 $SW/mvftools-dev-master/mvf_translate.py --mvf $OF/MVF_PAML/withCap/Jalt_ortho_dna --out $OF/MVF_PAML/withCap/Jalt_ortho_codon
-qsub $SF/mvf_paml.sh
-python $SF/CombinedPAML.py $OF/MVF_PAML/withCap/Clade2_out $OF/MVF_PAML/withCap/Geneoutput_Clade2 $OF/GeneFunction.txt > $OF/MVF_PAML/Clade2_final.txt
+python3.3 fasta2mvf.py --fasta inDIR/* --out outDIR/Jalt_ortho_dna --contigbyfile --overwrite
+python3.3 mvf_translate.py --mvf Jalt_ortho_dna --out Jalt_ortho_codon
+qsub mvf_paml.sh
+python CombinedPAML.py Clade2_out Geneoutput_Clade2 GeneFunction.txt > Clade2_final.txt
 ```
 
 ## Introgression Analysis
 ##### Run ABBA using MVF
 ```
-python $SF/ConcatSeq.py $OF/pranked_align/6th_Final $OF/D-stat/Jalt_concat_dna.fa
-python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/D-stat/Jalt_concat_dna.fa --out $OF/D-stat/jalt_concat_dna --overwrite
-sh $OF/D-stat/trios.sh
+python ConcatSeq.py <inDIR> Jalt_concat_dna.fa
+python3.3 fasta2mvf.py --fasta Jalt_concat_dna.fa --out jalt_concat_dna --overwrite
+sh trios.sh
 ```
