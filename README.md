@@ -126,20 +126,6 @@ python find_unprocessed_files.py <processedDIR> <originalDIR> <unprocessedDIR>
 python OrfBoundary.py <inDIR> <outDIR>
 qsub mask_bySW.sh
 ```
-##### Post-alignment treatment_2 (before PAML analysis)
-```
-python $SF/seqformat_converter.py $OF/post-guid/3rd_maskedSW $OF/post-guid/4th_preSWAMP .fa
-sh edit_phy2.sh
-python $SF/codemlScript.py $OF/post-guid/4th_preSWAMP $OF/codeml_build $OF/treeFile
-python $SF/directory_subpackage.py $OF/post-guid/4th_preSWAMP 1000 fileEnding
-qsub paml.sh
-python software/SWAMP-master/SWAMP.py -i $OF/post-guid/4th_preSWAMP -b $OF/branchcodes_withCap.txt -t 5 -w 15 -m 50
-for file in Solyc*; do cp $file/*masked.phy $OF/post-guid/5th_postSWAMP/; done
-for file in $OF/post-guid/5th_postSWAMP/fastaFile/Solyc*; do cp $file $OF/post-guid/6th_Gblocks; done
-for file in Solyc*; do sed -i 's/N/-/g' $file; done
-python $SF/DeleteSites.py $OF/post-guid/5th_postSWAMP/fastaFile/ $OF/post-guid/6th_Final/
-python $SF/StopCodon.py $OF/post-guid/6th_Final/ .fa
-```
 ##### Concatenate alignments
 ```
 python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP/phylipFile/ $OF/post-guid/5th_postSWAMP/fastaFile/ .phy
@@ -148,16 +134,24 @@ python $SF/seqformat_converter.py $OF/post-guid/5th_postSWAMP $OF/post-guid/5th_
 ```
 
 ## Adaptive Evolution Analysis
+##### Sliding Window before PAML
+```
+python seqformat_converter.py <inDIR> <outDIR> .fa
+sh edit_phy2.sh
+python codemlScript.py <outDIR> <codeml_build> <treeFile>
+qsub paml.sh
+python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 5 -w 15 -m 50
+for file in Solyc*; do cp inDIR/*masked.phy outDIR; done
+for file in Solyc*; do sed -i 's/N/-/g' $file; done
+python DeleteSites.py <inDIR> <outDIR>
+python StopCodon.py <inDIR> .fa
+```
 ##### Run PAML using MVF
 ```
 python3.3 $SW/mvftools-dev-master/fasta2mvf.py --fasta $OF/post-guid/6th_Final/* --out $OF/MVF_PAML/withCap/Jalt_ortho_dna --contigbyfile --overwrite
 python3.3 $SW/mvftools-dev-master/mvf_translate.py --mvf $OF/MVF_PAML/withCap/Jalt_ortho_dna --out $OF/MVF_PAML/withCap/Jalt_ortho_codon
 qsub $SF/mvf_paml.sh
 python $SF/CombinedPAML.py $OF/MVF_PAML/withCap/Clade2_out $OF/MVF_PAML/withCap/Geneoutput_Clade2 $OF/GeneFunction.txt > $OF/MVF_PAML/Clade2_final.txt
-```
-##### Run PAML on Untested Candidate Genes
-```
-sh $SF/prank/prank_plus.sh
 ```
 
 ## Introgression Analysis
