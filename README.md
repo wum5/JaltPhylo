@@ -126,15 +126,22 @@ python find_unprocessed_files.py <processedDIR> <originalDIR> <unprocessedDIR>
 python OrfBoundary.py <inDIR> <outDIR>
 qsub mask_bySW.sh
 ```
-##### Concatenate alignments
+##### Remove Capana sequences and delete gaps or missing bases from alignments
 ```
-python seqformat_converter.py <phylipDIR> <fastaDIR> .phy
+python remove_seq_from_alignment.py <inDIR> <outDIR> seqName
+python DeleteSites.py <inDIR> <outDIR> 
+```
+
+## Phylogeny Construction
+#### Concatenated tree
+```
 python ConcatSeq.py <inDIR> concat_withCap.fa
 python seqformat_converter.py <fastaDIR> <phylipDIR> .fa
+qsub raxml_concatenate.sh
 ```
 
 ## Adaptive Evolution Analysis
-##### Sliding Window before PAML
+##### Post-alignment treatment_2 (before PAML)
 ```
 python seqformat_converter.py <inDIR> <outDIR> .fa
 sh edit_phy2.sh
