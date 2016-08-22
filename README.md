@@ -124,7 +124,7 @@ python CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zunla-1
 ##### Run Guidance to make sequence alignments
 ```
 python directory_subpackage.py <inDIR> <num_subdir> .fa
-python guidance.py <outDIR> <num_subdir>
+python guidance_process.py <outDIR> <num_subdir> <thread> <hour>
 for file in *sh; do qsub $file; done
 ```
 ##### Re-run Guidance on unprocessed sequences
@@ -139,7 +139,7 @@ qsub mask_bySW.sh
 ```
 ##### Remove Capana sequences and delete gaps or missing bases from alignments
 ```
-python remove_seq_from_alignment.py <inDIR> <outDIR> seqName
+python remove_seq_from_alignment.py <inDIR> <outDIR> <remove_seqname>
 python DeleteSites.py <inDIR> <outDIR> 
 ```
 
