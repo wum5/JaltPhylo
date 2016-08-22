@@ -1,15 +1,20 @@
 # Jaltomata Phylogenomics
 
-## Description
+## Table of contents
+##Table of Contents
+  * [Overview](#overview)
+  * [Contributors](#contributors)
+
+## Overview
 * Raw scripts/Pipeline for the "Jaltomato Phylogenomics" Project.
 * Some scripts were written by Ya Yang for her study (https://bitbucket.org/yangya/phylogenomic_dataset_construction)
 * Still in updating!
 
-## Authors: 
+## Contributors 
 * Meng Wu
 * https://github.com/wum5/JaltPhylo
 
-## Raw Data Processing
+## Raw data processing
 ##### Trim low-quality reads using shear.py
 ```
 qsub trim.sh
