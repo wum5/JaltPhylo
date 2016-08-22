@@ -1,6 +1,6 @@
 # Jaltomata Phylogenomics
 
-## Table of contents
+## Table of Contents
 * [Overview](#overview)
 * [Contributors](#contributors)
 * [Raw Data Processing](#raw-data-processing)
