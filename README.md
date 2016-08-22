@@ -1,9 +1,9 @@
 # Jaltomata Phylogenomics
 
 ## Table of contents
-##Table of Contents
-  * [Overview](#overview)
-  * [Contributors](#contributors)
+* [Overview](#overview)
+* [Contributors](#contributors)
+* [Raw data processing](#raw-data-processing)
 
 ## Overview
 * Raw scripts/Pipeline for the "Jaltomato Phylogenomics" Project.
