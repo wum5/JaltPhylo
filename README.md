@@ -3,9 +3,13 @@
 ## Table of contents
 * [Overview](#overview)
 * [Contributors](#contributors)
-* [Raw data processing](#raw-data-processing)
-* [Homolog Inference](#homolog-inferens)
-* 
+* [Raw Data Processing](#raw-data-processing)
+* [Homolog Inference](#homolog-inference)
+* [Ortholog Inference](#ortholog-inference)
+* [Alignment construction](#alignment-construction)
+* [Phylogeny Construction](#phylogeny-construction)
+* [Introgression Analysis](#introgression-analysis)
+* [Adaptive Evolution Analysis](#adaptive-evolution-analysis)
 
 ## Overview
 * Raw scripts/Pipeline for the "Jaltomato Phylogenomics" Project.
@@ -16,7 +20,7 @@
 * Meng Wu
 * https://github.com/wum5/JaltPhylo
 
-## Raw data processing
+## Raw Data Processing
 ##### Trim low-quality reads using shear.py
 ```
 qsub trim.sh
@@ -116,7 +120,7 @@ python SeqRename.py <inDIR> <outDIR> Cluster2Gene.txt
 python CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa <outDIR>
 ```
 
-## Alignment Construction and Quality Check
+## Alignment Construction
 ##### Run Guidance to make sequence alignments
 ```
 python directory_subpackage.py <inDIR> <num_subdir> .fa
@@ -147,6 +151,14 @@ python seqformat_converter.py <fastaDIR> <phylipDIR> .fa
 qsub raxml_concatenate.sh
 ```
 
+## Introgression Analysis
+##### Run ABBA using MVF
+```
+python ConcatSeq.py <inDIR> Jalt_concat_dna.fa
+python3.3 fasta2mvf.py --fasta Jalt_concat_dna.fa --out jalt_concat_dna --overwrite
+sh trios.sh
+```
+
 ## Adaptive Evolution Analysis
 ##### Post-alignment treatment_2 (before PAML)
 ```
@@ -166,12 +178,4 @@ python3.3 fasta2mvf.py --fasta inDIR/* --out outDIR/Jalt_ortho_dna --contigbyfil
 python3.3 mvf_translate.py --mvf Jalt_ortho_dna --out Jalt_ortho_codon
 qsub mvf_paml.sh
 python CombinedPAML.py Clade2_out Geneoutput_Clade2 GeneFunction.txt > Clade2_final.txt
-```
-
-## Introgression Analysis
-##### Run ABBA using MVF
-```
-python ConcatSeq.py <inDIR> Jalt_concat_dna.fa
-python3.3 fasta2mvf.py --fasta Jalt_concat_dna.fa --out jalt_concat_dna --overwrite
-sh trios.sh
 ```
