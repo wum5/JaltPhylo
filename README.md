@@ -112,8 +112,7 @@ python write_ortholog_fasta_files.py <fasta file with all seqs> <ortholog tree D
 ```
 ##### Rename the sequence files based on Tomato Gene Model rather than Cluster ID
 ```
-python cluster_gene_ID.py <inDIR> > Cluster2Gene.txt
-python SeqRename.py <inDIR> <outDIR> Cluster2Gene.txt
+python cluster_gene_ID.py <inDIR> <treDIR> <outDIR>
 ```
 ##### Add Capsella-Tomato 1-to-1 orthologous sequence into sequence files
 ```
@@ -134,13 +133,11 @@ python find_unprocessed_files.py <processedDIR> <originalDIR> <unprocessedDIR>
 ```
 ##### Post-alignment treatment_1 (before constructing phylogeny)
 ```
-python OrfBoundary.py <inDIR> <outDIR>
 qsub mask_bySW.sh
 ```
 ##### Remove Capana sequences and delete gaps or missing bases from alignments
 ```
-python remove_seq_from_alignment.py <inDIR> <outDIR> <remove_seqname>
-python DeleteSites.py <inDIR> <outDIR> 
+python orf_aln_process.py <inDIR> <outDIR>
 ```
 
 ## Phylogeny Construction
