@@ -64,10 +64,6 @@ python blast_to_mcl.py all.rawblast <hit_fraction_cutoff>
 mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
 python write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_ingroup_taxa> <outDIR>
 ```
-##### Delete empty files
-```
-find . -size 0 -delete
-```
 ##### make initial alignments
 ```
 qsub mafft.sh
@@ -101,10 +97,6 @@ python mask_tips_by_taxonID_transcripts.py <treDIR> <aln-clnDIR> <outDIR>
 ##### Paralogy pruning to infer orthologs
 ```
 python prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_cutoff> <absolute_long_tip_cutoff> <minimal_taxa> <outDIR>
-```
-##### Filter clusters with specific species
-```
-python species_in_clusters.py <inDIR> <outDIR>
 ```
 ##### Write sequence files from ortholog trees
 ```
@@ -166,8 +158,7 @@ qsub paml.sh
 python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 5 -w 15 -m 50
 for file in Solyc*; do cp inDIR/*masked.phy outDIR; done
 for file in Solyc*; do sed -i 's/N/-/g' $file; done
-python DeleteSites.py <inDIR> <outDIR>
-python StopCodon.py <inDIR> .fa
+python orf_aln_process.py <inDIR> <outDIR> seqname
 ```
 ##### Run PAML using MVF
 ```
