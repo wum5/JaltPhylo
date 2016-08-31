@@ -160,9 +160,9 @@ qsub mrbayes.sh
 ## Introgression Analysis
 ##### Run ABBA using MVF
 ```
-python ConcatSeq.py <inDIR> Jalt_concat_dna.fa
-python3.3 fasta2mvf.py --fasta Jalt_concat_dna.fa --out jalt_concat_dna --overwrite
-sh trios.sh
+python3.3 fasta2mvf.py --fasta <concatenated_fasta> --out transcriptome --overwrite
+python ABBA_trio.py
+qsub trios.sh
 ```
 
 ## Adaptive Evolution Analysis
