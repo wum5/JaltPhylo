@@ -139,6 +139,16 @@ python ConcatSeq.py <inDIR> concat_withCap.fa
 python seqformat_converter.py <fastaDIR> <phylipDIR> .fa
 qsub raxml_concatenate.sh
 ```
+#### Consensus tree and calculate internode certainty (IC)
+```
+module load phylip; consense
+raxmlHPC -L MRE -z genetrees.tre -m GTRCAT -n T1
+```
+#### Colascence tree by ASTRAL
+```
+python astral_prepare.py inDIR tre_file bs_file
+qsub astral.sh
+```
 
 ## Introgression Analysis
 ##### Run ABBA using MVF
