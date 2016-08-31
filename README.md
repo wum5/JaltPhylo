@@ -136,7 +136,7 @@ python orf_aln_process.py <inDIR> <outDIR>
 #### Concatenated tree
 ```
 python ConcatSeq.py <inDIR> concat_withCap.fa
-python seqformat_converter.py <fastaDIR> <phylipDIR> .fa
+python seqformat_converter.py <fastaDIR> <phylipDIR> .fa .phy
 qsub raxml_concatenate.sh
 ```
 #### Consensus tree and calculate internode certainty (IC)
@@ -148,6 +148,13 @@ raxmlHPC -L MRE -z genetrees.tre -m GTRCAT -n T1
 ```
 python astral_prepare.py inDIR tre_file bs_file
 qsub astral.sh
+```
+#### Gene tree analysis with BUCKy
+```
+python seqformat_converter.py <inDIR> <outDIR> .phy .nex
+python mrbayes_prepare.py <inDIR>
+for file in *.nex; do mkdir "${file%.*nex}"; mv $file "${file%.*nex}"; done
+qsub mrbayes.sh
 ```
 
 ## Introgression Analysis
@@ -161,7 +168,7 @@ sh trios.sh
 ## Adaptive Evolution Analysis
 ##### Post-alignment treatment_2 (before PAML)
 ```
-python seqformat_converter.py <inDIR> <outDIR> .fa
+python seqformat_converter.py <inDIR> <outDIR> .fa .phy
 sh edit_phy2.sh
 python codemlScript.py <outDIR> <codeml_build> <treeFile>
 qsub paml.sh
