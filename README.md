@@ -174,7 +174,6 @@ sh edit_phy2.sh
 python codemlScript.py <outDIR> <codeml_build> <treeFile>
 qsub paml.sh
 python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 5 -w 15 -m 50
-
 ```
 ##### Remove all gaps and missing bases before PAML
 ```
