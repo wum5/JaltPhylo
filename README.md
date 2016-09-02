@@ -155,6 +155,7 @@ python seqformat_converter.py <inDIR> <outDIR> .phy .nex
 python mrbayes_prepare.py <inDIR>
 for file in *.nex; do mkdir "${file%.*nex}"; mv $file "${file%.*nex}"; done
 qsub mrbayes.sh
+qsub bucky.sh
 ```
 
 ## Introgression Analysis
@@ -173,6 +174,10 @@ sh edit_phy2.sh
 python codemlScript.py <outDIR> <codeml_build> <treeFile>
 qsub paml.sh
 python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 5 -w 15 -m 50
+
+```
+##### Remove all gaps and missing bases before PAML
+```
 for file in Solyc*; do cp inDIR/*masked.phy outDIR; done
 for file in Solyc*; do sed -i 's/N/-/g' $file; done
 python orf_aln_process.py <inDIR> <outDIR> seqname
