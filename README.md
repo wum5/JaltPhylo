@@ -129,7 +129,7 @@ qsub mask_bySW.sh
 ```
 ##### Remove Capana sequences and delete gaps or missing bases from alignments
 ```
-python orf_aln_process.py <inDIR> <outDIR>
+python orf_aln_process.py <inDIR> <outDIR> -s Capana -d 15
 ```
 
 ## Phylogeny Construction
@@ -167,13 +167,19 @@ qsub trios.sh
 ```
 
 ## Adaptive Evolution Analysis
-##### Post-alignment treatment_2 (before PAML)
+##### Separate alignments with/without Capana and remove JA0010 from alignments
 ```
+python orf_aln_process.py <inDIR> <outDIR> -s JA0010
+grep -lir 'Capana' ./ | xargs mv -t <outDIR>
 python seqformat_converter.py <inDIR> <outDIR> .fa .phy
 sh edit_phy2.sh
+```
+##### Post-alignment treatment_2 (before PAML)
+```
 python codemlScript.py <outDIR> <codeml_build> <treeFile>
 qsub paml.sh
 python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 5 -w 15 -m 50
+python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 2 -w 3 -m 50
 ```
 ##### Remove all gaps and missing bases before PAML
 ```
