@@ -178,15 +178,20 @@ sh edit_phy2.sh
 ```
 python codemlScript.py <outDIR> <codeml_build> <treeFile>
 qsub paml.sh
+find */rub -empty -type f
 python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 5 -w 15 -m 50
-python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 2 -w 3 -m 50
 ```
 ##### Remove all gaps and missing bases before PAML
 ```
 for file in Solyc*; do cp inDIR/*masked.phy outDIR; done
-for file in Solyc*; do sed -i 's/N/-/g' $file; done
 python orf_aln_process.py <inDIR> <outDIR> seqname
 ```
+##### Calculate pair-wise dN, dS values
+```
+python ConcatSeq.py <inDIR> concat_codon.fa
+codeml
+```
+#####
 ##### Run PAML using MVF
 ```
 python3.3 fasta2mvf.py --fasta inDIR/* --out outDIR/Jalt_ortho_dna --contigbyfile --overwrite
