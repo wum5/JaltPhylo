@@ -131,12 +131,16 @@ qsub mask_bySW.sh
 ```
 python orf_aln_process.py <inDIR> <outDIR> -s Capana -d 15
 ```
+##### Calculate pair-wise dN, dS values
+```
+python ConcatSeq.py <inDIR> concat_noCap.fa
+python seqformat_converter.py <fastaDIR> <phylipDIR> .fa .phy
+codeml (runmode = -2, seqtype = 1, CodonFreq = 2)
+```
 
 ## Phylogeny Construction
 #### Concatenated tree
 ```
-python ConcatSeq.py <inDIR> concat_withCap.fa
-python seqformat_converter.py <fastaDIR> <phylipDIR> .fa .phy
 qsub raxml_concatenate.sh
 ```
 #### Consensus tree and calculate internode certainty (IC)
@@ -169,7 +173,7 @@ qsub trios.sh
 ## Adaptive Evolution Analysis
 ##### Separate alignments with/without Capana and remove JA0010 from alignments
 ```
-python orf_aln_process.py <inDIR> <outDIR> -s JA0010
+python orf_aln_process.py -i <inDIR> -o <outDIR> -s JA0010
 grep -lir 'Capana' ./ | xargs mv -t <outDIR>
 python seqformat_converter.py <inDIR> <outDIR> .fa .phy
 sh edit_phy2.sh
@@ -184,18 +188,12 @@ python SWAMP.py -i <inDIR> -b <branchcodes.txt> -t 5 -w 15 -m 50
 ##### Remove all gaps and missing bases before PAML
 ```
 for file in Solyc*; do cp inDIR/*masked.phy outDIR; done
-python orf_aln_process.py <inDIR> <outDIR> seqname
+python orf_aln_process.py -i <inDIR> -o <outDIR> -s seqname -d 14
 ```
-##### Calculate pair-wise dN, dS values
-```
-python ConcatSeq.py <inDIR> concat_codon.fa
-codeml
-```
-#####
 ##### Run PAML using MVF
 ```
 python3.3 fasta2mvf.py --fasta inDIR/* --out outDIR/Jalt_ortho_dna --contigbyfile --overwrite
 python3.3 mvf_translate.py --mvf Jalt_ortho_dna --out Jalt_ortho_codon
 qsub mvf_paml.sh
-python CombinedPAML.py Clade2_out Geneoutput_Clade2 GeneFunction.txt > Clade2_final.txt
+python CombinedPAML.py <NS_out> <Geneoutput> GeneFunction.txt > PAML_final.txt
 ```
