@@ -22,57 +22,39 @@
 * https://github.com/wum5/JaltPhylo
 
 ## Raw Data Processing
-##### Trim low-quality reads using shear.py
+##### Trim low-quality reads and the first 15-bp of reads due to non-random hexamer primers
 ```
 qsub trim.sh
-```
-##### Remove the first 15-bp of reads due to non-random hexamer primers
-```
 qsub clip5end.sh
-```
-##### Check read quality using FastaQC
-```
 qsub FastaQC.sh
 ```
-##### Build transcript assembly
+##### Build transcript assembly and predict CDS using Transdecoder
 ```
 qsub trinity.sh
-```
-##### Predict CDS using Transdecoder
-```
 qsub transdecoder.sh
 ```
-##### Rename CDS files
+##### Rename CDS files and reduce redundancy
 ```
 for file in *_dir; do cp $file/longest_orfs.cds outDIR/$file'.cds'; done
 python fix_names_from_transdecoder.py <DIR> <DIR>
-```
-##### Reduce redundancy
-```
-cat *_NR.fa *_RP.fa > *.cds.fa
+cat *_NR.fa *_RP.fa > *_cds.fa
 qsub cd-hit-est.sh
 ```
 
 ## Homolog Inference
-##### Make all-by-all blast
+##### Make all-by-all blast and Infer putative homolog groups using similarity
 ```
 qsub blastn.sh
-```
-##### Inferring putative homolog groups using similarity
-```
-cat *blastn >all.rawblast
+cat *blastn > all.rawblast
 python blast_to_mcl.py all.rawblast <hit_fraction_cutoff>
 mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
 python write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_ingroup_taxa> <outDIR>
 ```
-##### make initial alignments
+##### make initial alignments and then cut long internal branch
 ```
 qsub mafft.sh
 qsub phyutility.sh
 qsub fasttree.sh
-```
-##### Cut long internal branch
-```
 python cut_long_branches_iter.py <inDIR> <outDIR>
 ```
 ##### refine the final clusters
@@ -81,34 +63,22 @@ qsub mafft.sh
 qsub phyutility.sh
 qsub raxml.sh
 ```
-##### Cut long internal branches
+##### Cut long internal branches, trim spurious tips and mask monophyletic/paraphyletic tips of the same taxon
 ```
 python cut_long_internal_branches.py <inDIR> <internal_branch_length_cutoff> <minimal_taxa> <outDIR>
-```
-##### Trim spurious tips
-```
 python trim_tips.py <treDIR> <outDIR> <relative_cutoff> <absolute_cutoff1> <absolute_cutoff2>
-```
-##### Mask monophyletic and paraphyletic tips that belongs to the same taxon
-```
 python mask_tips_by_taxonID_transcripts.py <treDIR> <aln-clnDIR> <outDIR>
 ```
 
 ## Ortholog Inference
 ##### Paralogy pruning to infer orthologs
 ```
-python prune_paralogs_MI.py <homologDIR> <tree_file_ending> <relative_long_tip_cutoff> <absolute_long_tip_cutoff> <minimal_taxa> <outDIR>
-```
-##### Write sequence files from ortholog trees
-```
+python prune_paralogs_MI.py <homologDIR> <tree_ending> <relative_tip_cutoff> <absolute_tip_cutoff> <minimal_taxa> <outDIR>
 python write_ortholog_fasta_files.py <fasta file with all seqs> <ortholog tree DIR> <outDIR> <MIN_TAXA>
 ```
-##### Rename the sequence files based on Tomato Gene Model rather than Cluster ID
+##### Rename the sequence files based on Tomato Gene Model and add Capsella orthologous sequence
 ```
 python cluster_gene_ID.py <inDIR> <treDIR> <outDIR>
-```
-##### Add Capsella-Tomato 1-to-1 orthologous sequence into sequence files
-```
 python CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa <outDIR>
 ```
 
@@ -124,12 +94,9 @@ for file in *sh; do qsub $file; done
 for file in Solyc*; do cp $file/MSA.PRANK.Without_low_SP_Col.With_Names outDIR/$file; done
 python find_unprocessed_files.py <processedDIR> <originalDIR> <unprocessedDIR>
 ```
-##### Post-alignment treatment_1 (before constructing phylogeny)
+##### Post-alignment treatment_1, remove Capsella sequences and delete gaps or missing bases
 ```
 qsub mask_bySW.sh
-```
-##### Remove Capana sequences and delete gaps or missing bases from alignments
-```
 python orf_aln_process.py <inDIR> <outDIR> -s Capana -d 15
 ```
 ##### Calculate pair-wise dN, dS values
@@ -140,12 +107,9 @@ codeml (runmode = -2, seqtype = 1, CodonFreq = 2)
 ```
 
 ## Phylogeny Construction
-#### Concatenated tree
+#### Concatenated tree and Consensus tree using RAxMl
 ```
 qsub raxml_concatenate.sh
-```
-#### Consensus tree and calculate internode certainty (IC)
-```
 module load phylip; consense
 raxmlHPC -L MRE -z genetrees.tre -m GTRCAT -n T1
 ```
@@ -179,7 +143,7 @@ grep -lir 'Capana' ./ | xargs mv -t <outDIR>
 python seqformat_converter.py <inDIR> <outDIR> .fa .phy
 sh edit_phy2.sh
 ```
-##### Post-alignment treatment_2 (before PAML)
+##### Post-alignment treatment_2
 ```
 python codemlScript.py <outDIR> <codeml_build> <treeFile>
 qsub paml.sh
