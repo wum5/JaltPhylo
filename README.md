@@ -86,8 +86,7 @@ python CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zunla-1
 ##### Run Guidance to make sequence alignments
 ```
 python directory_subpackage.py <inDIR> <num_subdir> .fa
-python guidance_process.py <outDIR> <num_subdir> <thread> <hour>
-for file in *sh; do qsub $file; done
+qsub guidance.sh
 ```
 ##### Re-run Guidance on unprocessed sequences
 ```
