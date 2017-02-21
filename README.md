@@ -76,11 +76,7 @@ python mask_tips_by_taxonID_transcripts.py <treDIR> <aln-clnDIR> <outDIR>
 python prune_paralogs_MI.py <homologDIR> <tree_ending> <relative_tip_cutoff> <absolute_tip_cutoff> <minimal_taxa> <outDIR>
 python write_ortholog_fasta_files.py <fasta file with all seqs> <ortholog tree DIR> <outDIR> <MIN_TAXA>
 ```
-##### Rename the sequence files based on Tomato Gene Model and add 
-
-
-
-ella orthologous sequence
+##### Rename the sequence files based on Tomato Gene Model and add Capsella orthologous sequences
 ```
 python cluster_gene_ID.py <inDIR> <treDIR> <outDIR>
 python CapsellaOrtholog.py <inDIR> Tomato_Capsella.txt Capsicum.annuum.L_Zunla-1_v2.0_CDS.fa <outDIR>
