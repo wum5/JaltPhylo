@@ -113,9 +113,6 @@ codeml (runmode = -2, seqtype = 1, CodonFreq = 2)
 #### Concatenated tree and Consensus tree using RAxML
 ```
 qsub raxml_concatenate.sh
-```
-#### Prepare gene trees () Consensus tree using RAxML
-```
 module load phylip; consense
 raxmlHPC -L MRE -z genetrees.tre -m GTRCAT -n T1
 ```
