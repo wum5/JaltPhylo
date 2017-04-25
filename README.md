@@ -98,11 +98,10 @@ python find_unprocessed_files.py <processedDIR> <originalDIR> <unprocessedDIR>
 qsub mask_bySW.sh
 python orf_aln_process.py <inDIR> <outDIR> -s Capana -d 15
 ```
-##### Calculate pair-wise dN, dS values
+##### Calculate pair-wise genetic distance
 ```
-python ConcatSeq.py <inDIR> concat_noCap.fa
-python seqformat_converter.py <fastaDIR> <phylipDIR> .fa .phy
-codeml (runmode = -2, seqtype = 1, CodonFreq = 2)
+python3.3 Softwares/mvftools-master/fasta2mvf.py --fasta alignments/final/* --out genes_mvf --contigbyfile --overwrite
+python3.3 Softwares/mvftools-master/mvf_analyze_dna.py --mvf genes_mvf --out genetic_dist PairwiseDistanceWindow
 ```
 
 ## Phylogeny Construction
@@ -141,6 +140,11 @@ qsub trios.sh
 ```
 python ABBA_parse.py -mvf MVF_FILE -test pairwise
 sh speciesID.sh
+```
+##### Infer direction of introgression by using D-foil test (example)
+```
+python3.3 Softwares/mvftools-master/mvf_analyze_dna.py --mvf transcriptome --out SIN_CAL_DAR_PRO --samples JA0702 JA0711 JA0694 JA0456 Solyc --windowsize 6201996 PatternCount
+python Softwares/dfoil-master/dfoil.py --out myfile --infile SIN_CAL_DAR_PRO —pvalue 0.00001
 ```
 
 ## Adaptive Evolution Analysis
