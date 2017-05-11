@@ -9,6 +9,7 @@
 * [Alignment construction](#alignment-construction)
 * [Phylogeny Construction](#phylogeny-construction)
 * [Introgression Analysis](#introgression-analysis)
+* [Ancestral Segregating Allele Analysis](#ancestral-segregating-allele-analysis)
 * [Adaptive Evolution Analysis](#adaptive-evolution-analysis)
 
 ## Overview
