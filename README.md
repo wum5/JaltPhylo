@@ -147,6 +147,16 @@ python3.3 mvf_analyze_dna.py --mvf transcriptome --out SIN_CAL_DAR_PRO --samples
 python dfoil.py --out myfile --infile SIN_CAL_DAR_PRO —pvalue 0.00001
 ```
 
+## Ancestral Segregating Allele Analysis
+##### Mapping reads to tomato reference genome
+```
+sh mapping.sh
+```
+##### Call SNPs and count ancestral segregating alleles
+```
+sh snp_call.sh
+```
+
 ## Adaptive Evolution Analysis
 ##### Separate alignments with/without Capana and remove JA0010 from alignments
 ```
