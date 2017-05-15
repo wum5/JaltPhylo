@@ -149,13 +149,16 @@ python dfoil.py --out myfile --infile SIN_CAL_DAR_PRO —pvalue 0.00001
 ```
 
 ## Ancestral Segregating Allele Analysis
-##### Mapping reads to tomato reference genome
+##### Mapping reads to tomato reference genome and call SNPs 
 ```
 sh mapping.sh
+sh snp_call.sh
 ```
 ##### Call SNPs and count ancestral segregating alleles
 ```
-sh snp_call.sh
+python ancestral_variation.py -i comibined.mvf -t species_hetero
+python ancestral_variation.py -i comibined.mvf -t shared_hetero
+python ancestral_variation.py -i comibined.mvf -t shared_snp
 ```
 
 ## Adaptive Evolution Analysis
