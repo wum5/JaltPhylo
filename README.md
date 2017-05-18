@@ -153,6 +153,7 @@ python dfoil.py --out myfile --infile SIN_CAL_DAR_PRO —pvalue 0.00001
 ```
 sh mapping.sh
 sh snp_call.sh
+python mvf_join.py --mvf SL2.50ch00.mvf SL2.50ch01.mvf SL2.50ch02.mvf SL2.50ch03.mvf SL2.50ch04.mvf SL2.50ch05.mvf SL2.50ch06.mvf SL2.50ch07.mvf SL2.50ch08.mvf SL2.50ch09.mvf SL2.50ch10.mvf SL2.50ch11.mvf SL2.50ch12.mvf --out combined.mvf
 ```
 ##### Count ancestral segregating alleles
 ```
