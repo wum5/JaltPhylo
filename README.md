@@ -1,7 +1,6 @@
 # Jaltomata Phylogenomics
 
 ## Table of Contents
-<img align="right" src="images/phylogeny_pipeline.pdf">
 * [Overview](#overview)
 * [Contributors](#contributors)
 * [Raw Data Processing](#raw-data-processing)
@@ -12,6 +11,7 @@
 * [Introgression Analysis](#introgression-analysis)
 * [Ancestral Segregating Allele Analysis](#ancestral-segregating-allele-analysis)
 * [Adaptive Evolution Analysis](#adaptive-evolution-analysis)
+<img align="right" src="images/phylogeny_pipeline.pdf">
 
 ## Overview
 * Raw scripts/Pipeline for the "Jaltomato Phylogenomics" Project.
