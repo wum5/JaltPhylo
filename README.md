@@ -1,6 +1,7 @@
 # Jaltomata Phylogenomics
 
 ## Table of Contents
+<img align="right" src="images/phylogeny_pipeline.pdf">
 * [Overview](#overview)
 * [Contributors](#contributors)
 * [Raw Data Processing](#raw-data-processing)
