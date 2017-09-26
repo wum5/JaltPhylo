@@ -1,7 +1,7 @@
 # Jaltomata Phylogenomics
 
 ## Table of Contents
-<img align="right" src="images/Phylogeny_pipeline.jpg" idth="300" height="300">
+<img align="right" src="images/Phylogeny_pipeline.jpg" width="500" height="320">
 
 * [Overview](#overview)
 * [Contributors](#contributors)
