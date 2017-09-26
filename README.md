@@ -193,7 +193,7 @@ python CombinedPAML.py <NS_out> <Geneoutput> GeneFunction.txt > PAML_final.txt
 ```
 ##### Perform PhylogGWAS analysis on the derived floral traits in Jaltomata (nectar)
 ```
-python3.3 mvf_analyze_codon.py GroupUniqueAlleleWindow --mvf $CD/Jalt_noSolyc_codon --out $OD/Jalt_nectar --allelegroups RED:JA0432,JA0608,JA0719,JA0726,JA0816,JA0711,JA0798 OTHER:JA0456,JA0701,JA0694,JA0450,JA0723,JA0702 --windowsize -1 --uselabels --speciesgroups PRO:JA0456 REP:JA0701 DAR:JA0694 AUR:JA0450 UMB:JA0432 BIF:JA0608 SIN:JA0702 DEN:JA0719 YUN:JA0723 AIJ:JA0726 INC:JA0816 CAL:JA0711 QUI:JA0798 --branchlrt $OD/Geneoutput_nectar --pamltmp PAMLtemp_nectar --startcontig 0 --endcontig 0 --target JA0432 JA0608 JA0719 JA0726 JA0816 JA0711 JA0798 --targetspec 8 --raxmlpath raxmlHPC --allsampletree
+python3.3 mvf_analyze_codon.py GroupUniqueAlleleWindow --mvf Jalt_noSolyc_codon --out Jalt_nectar --allelegroups RED:JA0432,JA0608,JA0719,JA0726,JA0816,JA0711,JA0798 OTHER:JA0456,JA0701,JA0694,JA0450,JA0723,JA0702 --windowsize -1 --uselabels --speciesgroups PRO:JA0456 REP:JA0701 DAR:JA0694 AUR:JA0450 UMB:JA0432 BIF:JA0608 SIN:JA0702 DEN:JA0719 YUN:JA0723 AIJ:JA0726 INC:JA0816 CAL:JA0711 QUI:JA0798 --branchlrt Geneoutput_nectar --pamltmp PAMLtemp_nectar --startcontig 0 --endcontig 0 --target JA0432 JA0608 JA0719 JA0726 JA0816 JA0711 JA0798 --targetspec 8 --raxmlpath raxmlHPC --allsampletree
 qsub ms_sim.sh
 ```
 
