@@ -1,6 +1,8 @@
 # Jaltomata Phylogenomics
 
 ## Table of Contents
+<img align="right" src="images/Phylogeny_pipeline.jpg" idth="300" height="300">
+
 * [Overview](#overview)
 * [Contributors](#contributors)
 * [Raw Data Processing](#raw-data-processing)
@@ -10,8 +12,7 @@
 * [Phylogeny Construction](#phylogeny-construction)
 * [Introgression Analysis](#introgression-analysis)
 * [Ancestral Segregating Allele Analysis](#ancestral-segregating-allele-analysis)
-* [Adaptive Evolution Analysis](#adaptive-evolution-analysis)
-<img align="right" src="images/Phylogeny_pipeline.jpg">
+* [Adaptive Evolution Analysis](#adaptive-evolution-analysis) 
 
 ## Overview
 * Raw scripts/Pipeline for the "Jaltomato Phylogenomics" Project.
@@ -52,14 +53,14 @@ python blast_to_mcl.py all.rawblast <hit_fraction_cutoff>
 mcl all.rawblast.hit-frac0.4.minusLogEvalue --abc -te 5 -tf 'gq(10)' -I 2.5 -o hit-frac0.4_I2.5_e10
 python write_fasta_files_from_mcl.py <fasta files> <mcl_outfile> <minimal_ingroup_taxa> <outDIR>
 ```
-##### make initial alignments and then cut long internal branch
+##### Generate initial alignments and then cut long internal branch
 ```
 qsub mafft.sh
 qsub phyutility.sh
 qsub fasttree.sh
 python cut_long_branches_iter.py <inDIR> <outDIR>
 ```
-##### refine the final clusters
+##### Refine the final clusters
 ```
 qsub mafft.sh
 qsub phyutility.sh
@@ -152,8 +153,8 @@ python dfoil.py --out myfile --infile SIN_CAL_DAR_PRO —pvalue 0.00001
 ## Ancestral Segregating Allele Analysis
 ##### Mapping reads to tomato reference genome and call SNPs 
 ```
-sh mapping.sh
-sh snp_call.sh
+qsub mapping.sh
+qsub snp_call.sh
 python mvf_join.py --mvf SL2.50ch00.mvf SL2.50ch01.mvf SL2.50ch02.mvf SL2.50ch03.mvf SL2.50ch04.mvf SL2.50ch05.mvf SL2.50ch06.mvf SL2.50ch07.mvf SL2.50ch08.mvf SL2.50ch09.mvf SL2.50ch10.mvf SL2.50ch11.mvf SL2.50ch12.mvf --out combined.mvf
 ```
 ##### Count ancestral segregating alleles
@@ -190,3 +191,9 @@ python3.3 mvf_translate.py --mvf Jalt_ortho_dna --out Jalt_ortho_codon
 qsub mvf_paml.sh
 python CombinedPAML.py <NS_out> <Geneoutput> GeneFunction.txt > PAML_final.txt
 ```
+##### Perform PhylogGWAS analysis on the derived floral traits in Jaltomata (nectar)
+```
+python3.3 mvf_analyze_codon.py GroupUniqueAlleleWindow --mvf $CD/Jalt_noSolyc_codon --out $OD/Jalt_nectar --allelegroups RED:JA0432,JA0608,JA0719,JA0726,JA0816,JA0711,JA0798 OTHER:JA0456,JA0701,JA0694,JA0450,JA0723,JA0702 --windowsize -1 --uselabels --speciesgroups PRO:JA0456 REP:JA0701 DAR:JA0694 AUR:JA0450 UMB:JA0432 BIF:JA0608 SIN:JA0702 DEN:JA0719 YUN:JA0723 AIJ:JA0726 INC:JA0816 CAL:JA0711 QUI:JA0798 --branchlrt $OD/Geneoutput_nectar --pamltmp PAMLtemp_nectar --startcontig 0 --endcontig 0 --target JA0432 JA0608 JA0719 JA0726 JA0816 JA0711 JA0798 --targetspec 8 --raxmlpath raxmlHPC --allsampletree
+qsub ms_sim.sh
+```
+
