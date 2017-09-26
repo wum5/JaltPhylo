@@ -11,7 +11,7 @@
 * [Introgression Analysis](#introgression-analysis)
 * [Ancestral Segregating Allele Analysis](#ancestral-segregating-allele-analysis)
 * [Adaptive Evolution Analysis](#adaptive-evolution-analysis)
-<img align="right" src="images/phylogeny_pipeline.pdf">
+<img align="right" src="images/phylogeny_pipeline.jpg">
 
 ## Overview
 * Raw scripts/Pipeline for the "Jaltomato Phylogenomics" Project.
