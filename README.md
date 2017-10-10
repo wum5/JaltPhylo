@@ -116,15 +116,11 @@ raxmlHPC -L MRE -z genetrees.tre -m GTRCAT -n T1
 ```
 #### Colascence tree by ASTRAL
 ```
-python astral_prepare.py inDIR tre_file bs_file
 qsub astral.sh
 ```
 #### Gene tree analysis with BUCKy
 ```
 python seqformat_converter.py <inDIR> <outDIR> .phy .nex
-python mrbayes_prepare.py <inDIR>
-for file in *.nex; do mkdir "${file%.*nex}"; mv $file "${file%.*nex}"; done
-qsub mrbayes.sh
 qsub bucky.sh
 ```
 #### Visualize phylogenetic tree

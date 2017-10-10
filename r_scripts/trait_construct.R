@@ -1,3 +1,4 @@
+setwd("/Users/mengwu/Documents/Research/JaltPhylo/updated_scripts/r_scripts")
 source("base_functions.R")
 library(ape)
 
@@ -21,9 +22,11 @@ row.names(df) <- c("J.repandidentata","J.procumbens","J.darcyana",
                    "J.grandibaccata","J.dendroidea","J.incahuasina")
 new_tree<-drop.tip(ultra_tre,tip="S.lycopersicum")
 
+
+#### Maximum likelihood Approach ####
+
 pdf("ancestral_states.pdf", width=10, height=10) 
 par(mfrow=c(2,2))
-
 
 ## estimate ancestral states under a ER model
 ## fruit color
@@ -37,9 +40,8 @@ plotTree(new_tree,fsize=1,ftype="i")
 nodelabels(node=1:new_tree$Nnode+Ntip(new_tree),
            pie=fitER$lik.anc,piecol=cols,cex=0.8)
 tiplabels(pie=to.matrix(fruit_color[new_tree$tip.label],
-                        seq=sort(unique(fruit_color))),piecol=cols,cex=0.3)
+                        seq=sort(unique(fruit_color))),piecol=cols,cex=0.5)
 add.simmap.legend(colors=cols,prompt=FALSE,x=0.3,y=4,fsize=1)
-
 
 # nectar color
 nectar_color<-as.matrix(df)[,2]
@@ -52,10 +54,9 @@ plotTree(new_tree,fsize=1,ftype="i")
 nodelabels(node=1:new_tree$Nnode+Ntip(new_tree),
            pie=fitER$lik.anc,piecol=cols,cex=0.8)
 tiplabels(pie=to.matrix(nectar_color[new_tree$tip.label],
-                        seq=sort(unique(nectar_color))),piecol=cols,cex=0.3)
+                        seq=sort(unique(nectar_color))),piecol=cols,cex=0.5)
 add.simmap.legend(colors=cols,prompt=FALSE,x=0.3,
                   y=3,fsize=1)
-
 
 # nectar volume
 nectar_volume<-as.matrix(df)[,3]
@@ -70,7 +71,6 @@ obj<-contMap(new_tree,nectar_volume,plot=FALSE)
 plot(obj,legend=0.7*max(nodeHeights(new_tree)),
      fsize=c(1,0.9))
 
-
 # floral shape
 floral_shape<-as.matrix(df)[,4]
 cols<-setNames(c("pink","white","red"),sort(unique(floral_shape)))
@@ -82,10 +82,9 @@ plotTree(new_tree,fsize=1,ftype="i")
 nodelabels(node=1:new_tree$Nnode+Ntip(new_tree),
            pie=fitER$lik.anc,piecol=cols,cex=0.8)
 tiplabels(pie=to.matrix(floral_shape[new_tree$tip.label],
-                        seq=sort(unique(floral_shape))),piecol=cols,cex=0.3)
+                        seq=sort(unique(floral_shape))),piecol=cols,cex=0.5)
 add.simmap.legend(colors=cols,prompt=FALSE,x=0.3,
                   y=3,fsize=1)
 dev.off()
-
 
 

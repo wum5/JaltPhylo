@@ -1,5 +1,7 @@
 setwd("/Users/mengwu/Documents/Research/JaltPhylo/updated_scripts/r_scripts")
 library(ggplot2)
+source("base_functions.R")
+
 
 
 ## Tree in Figure 2
@@ -7,8 +9,6 @@ pdf("fig2-tree.pdf", width=15, height=5)
 par(mar=c(3,1,1,2)+0.1)
 plot_tre("../tree/bucky_tree.tre", ultrametric=T, scale_axis=T, boostrap_pie=T, rotate_node=c(19,23,24,27,28,29))
 dev.off()
-
-
 
 # Plot whole-transcriptome concatenated tree
 pdf("Whole-transcriptome-tree.pdf", width=10, height=10) 
@@ -172,6 +172,13 @@ dev.off()
 #nodelabels(tree$node.label, adj = c(1.1, 1.5), frame = "none", cex=0.6)
 
 
-
+### Parse the tree information used in ms simulation
+mytree <- read.tree("../tree/bucky_tree.tre")
+ultra_tre <- ultrametric(mytree)
+rotate_node=c(19,23,24,27,28,29)
+for (x in 1:length(rotate_node)){
+  if (!is.na(rotate_node[x])) ultra_tre <- rotate(ultra_tre, rotate_node[x])}
+plot(ultra_tre)
+dist.nodes(ultra_tre)[13,15]/2
 
 
