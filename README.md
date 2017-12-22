@@ -19,7 +19,7 @@
 * Some scripts were written by Ya Yang for her study (https://bitbucket.org/yangya/phylogenomic_dataset_construction).
 * Scripts associated with MVF-format data processsing can be found in mvftools (https://github.com/jbpease/mvftools).
 * Some scripts could/should be splited for multiple runs (need to check before running)
-* The paper associated with this project is currently under review [bioRxiv 201376](https://doi.org/10.1101/201376)
+* The paper associated with this project is currently under review ([bioRxiv 201376](https://doi.org/10.1101/201376))
 * Still in updating! 
 
 ## Contributors 
