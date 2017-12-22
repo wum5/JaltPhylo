@@ -6,7 +6,7 @@
 
 cd /N/dc2/projects/jaltomt/introgression
 
-
+## test introgression
 python /N/dc2/projects/jaltomt/softwares/mvftools/mvf_chromoplot.py --mvf transcriptome --samples JA0711 JA0010 JA0694 --outgroup Solyc --windowsize 6201996 
 python /N/dc2/projects/jaltomt/softwares/mvftools/mvf_chromoplot.py --mvf transcriptome --samples JA0711 JA0010 JA0456 --outgroup Solyc --windowsize 6201996 
 python /N/dc2/projects/jaltomt/softwares/mvftools/mvf_chromoplot.py --mvf transcriptome --samples JA0711 JA0010 JA0701 --outgroup Solyc --windowsize 6201996 

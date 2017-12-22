@@ -18,7 +18,9 @@
 * Raw scripts/Pipeline for the "Jaltomato Phylogenomics" Project.
 * Some scripts were written by Ya Yang for her study (https://bitbucket.org/yangya/phylogenomic_dataset_construction).
 * Scripts associated with MVF-format data processsing can be found in mvftools (https://github.com/jbpease/mvftools).
-* Still in updating!
+* Some scripts could/should be splited for multiple runs (need to check before running)
+* The paper associated with this project is currently under review [bioRxiv 201376](https://doi.org/10.1101/201376)
+* Still in updating! 
 
 ## Contributors 
 * Meng Wu
@@ -133,7 +135,7 @@ rstrip phylo_construct.R
 ```
 python3.3 fasta2mvf.py --fasta <concatenated_fasta> --out transcriptome --overwrite
 python ABBA_trio.py
-qsub trios.sh
+qsub introgression_trios.sh
 ```
 ##### Infer pairwise species-specific/common ABBA-BABA sites 
 ```
@@ -158,6 +160,10 @@ python mvf_join.py --mvf SL2.50ch00.mvf SL2.50ch01.mvf SL2.50ch02.mvf SL2.50ch03
 python ancestral_variation.py -i comibined.mvf -t species_hetero
 python ancestral_variation.py -i comibined.mvf -t shared_hetero
 python ancestral_variation.py -i comibined.mvf -t shared_snp
+```
+##### Count how many sites are discordant with the representative topology using a BBAA-ABBA-BABA test
+```
+qsub ILS_trios.sh
 ```
 
 ## Adaptive Evolution Analysis

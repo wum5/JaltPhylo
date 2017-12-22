@@ -22,4 +22,5 @@ if __name__ == "__main__":
 			AlignIO.convert(inDIR+i, "phylip-sequential", outDIR+clusterID+".fa", "fasta", alphabet=Alphabet.generic_dna)
 		elif inputFormat == '.phy' and outputFormat == '.nex':
 			AlignIO.convert(inDIR+i, "phylip-sequential", outDIR+clusterID+".nex", "nexus", alphabet=Alphabet.generic_dna)
-
+		elif inputFormat == '.fa' and outputFormat == '.nex':
+                        AlignIO.convert(inDIR+i, "fasta", outDIR+clusterID+".nex", "nexus", alphabet=Alphabet.generic_dna)
